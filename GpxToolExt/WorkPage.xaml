@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:myctrls="clr-namespace:FSofTUtils.Xamarin.Control;assembly=FSofTUtils.Xamarin"
+             x:Class="GpxToolExt.WorkPage">
+   <ContentPage.Content>
+      <StackLayout BackgroundColor="DarkGreen">
+         <ScrollView Orientation="Horizontal">
+            <ScrollView x:Name="outputScrollView" Orientation="Vertical">
+
+               <myctrls:SelectableLabel 
+                       x:Name="output" 
+                       FontFamily="monospace"
+                       FontSize="Small"
+                       IsReadOnly="True"
+                       Text="Test" 
+                       IsSpellCheckEnabled="False"
+                       HorizontalOptions="StartAndExpand"
+                       VerticalOptions="EndAndExpand"
+                       TextColor="White" 
+                       AutoSize="TextChanges" 
+                  />
+
+            </ScrollView>
+         </ScrollView>
+      </StackLayout>
+   </ContentPage.Content>
+</ContentPage>

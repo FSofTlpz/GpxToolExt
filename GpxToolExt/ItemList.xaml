@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="GpxToolExt.ItemList"
+             x:Name="this">
+   <ContentView.Content>
+      <ScrollView Orientation="Horizontal">
+         <StackLayout x:Name="elementStack" 
+                     Orientation="Vertical">
+            <!--<Frame BackgroundColor="Silver"
+                   HasShadow="false"
+                   CornerRadius="5"
+                   Padding="10,5,10,5"
+                   HorizontalOptions="FillAndExpand">
+               <StackLayout Orientation="Vertical">
+                  <Label Text="/storage/emulated/0/Test/test.gpx" 
+                         TextColor="Black" 
+                         HorizontalOptions="FillAndExpand"/>
+                  <Label Text="1024 Byte/1 kByte, 1.1.1851, 13:14:15" 
+                         TextColor="Red" 
+                         FontSize="Micro"
+                         HorizontalTextAlignment="End"
+                         HorizontalOptions="FillAndExpand"/>
+               </StackLayout>
+            </Frame>-->
+         </StackLayout>
+      </ScrollView>
+   </ContentView.Content>
+</ContentView>

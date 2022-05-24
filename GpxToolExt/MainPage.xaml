@@ -1,0 +1,471 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:GpxToolExt"
+             xmlns:myctrls="clr-namespace:FSofTUtils.Xamarin.Control;assembly=FSofTUtils.Xamarin"
+             x:Class="GpxToolExt.MainPage"
+             BackgroundColor="#d0ffd0">
+
+   <ContentPage.Resources>
+      <ResourceDictionary>
+         <Style x:Key="labelStyle4Checkbox" TargetType="Label">
+            <Setter Property="FontSize" Value="Default"/>
+            <Setter Property="TextColor" Value="Black"/>
+            <Setter Property="HorizontalOptions" Value="StartAndExpand"/>
+            <Setter Property="VerticalOptions" Value="CenterAndExpand"/>
+         </Style>
+
+         <Style x:Key="frameStyle4Division" TargetType="Frame">
+            <Setter Property="BackgroundColor" Value="#00b000"/>
+            <Setter Property="Padding" Value="10"/>
+         </Style>
+
+         <Style x:Key="labelStyle4Division" TargetType="Label">
+            <Setter Property="FontAttributes" Value="Bold"/>
+            <Setter Property="FontSize" Value="Default"/>
+            <Setter Property="TextColor" Value="White"/>
+            <Setter Property="HorizontalOptions" Value="Center"/>
+            <Setter Property="VerticalOptions" Value="CenterAndExpand"/>
+         </Style>
+
+         <Style x:Key="frameStyle4Destfile" TargetType="Frame">
+            <Setter Property="BorderColor" Value="Black"/>
+            <Setter Property="BackgroundColor" Value="#ffe0e0"/>
+            <Setter Property="VerticalOptions" Value="CenterAndExpand"/>
+            <Setter Property="HorizontalOptions" Value="StartAndExpand"/>
+            <Setter Property="HasShadow" Value="True"/>
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="Margin" Value="0,0,10,0"/>
+         </Style>
+
+         <Style x:Key="labelStyle4Destfile" TargetType="Label">
+            <Setter Property="FontSize" Value="Default"/>
+            <Setter Property="TextColor" Value="Black"/>
+            <Setter Property="HorizontalOptions" Value="StartAndExpand"/>
+            <Setter Property="VerticalOptions" Value="CenterAndExpand"/>
+         </Style>
+      </ResourceDictionary>
+   </ContentPage.Resources>
+
+   <StackLayout>
+
+      <!--<BoxView Style="{StaticResource horizontalLine}"/>-->
+
+      <ScrollView Orientation="Vertical">
+         <StackLayout x:Name="stackLayoutMain" Padding="0,0,0,0">
+
+            <!--<Frame BackgroundColor="#00b000" Padding="10">
+               <Label Text="Test" HorizontalTextAlignment="Center" TextColor="White"/>
+            </Frame>
+            <Grid>
+               <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="1*" />
+                  <ColumnDefinition Width="2*" />
+               </Grid.ColumnDefinitions>
+               <Grid.RowDefinitions>
+                  <RowDefinition Height="auto" />
+               </Grid.RowDefinitions>
+
+               <myctrls:ColorChooser Color="Gray"></myctrls:ColorChooser>
+               
+               <Picker x:Name="x"
+                    Title="Vereinfachung"
+                    Grid.Row="0" Grid.Column="0">
+                  <Picker.ItemsSource>
+                     <x:Array Type="{x:Type x:String}">
+                        <x:String>keine</x:String>
+                        <x:String>Reumann-Witkam</x:String>
+                        <x:String>Douglas-Peucker</x:String>
+                        <x:String>xy</x:String>
+                     </x:Array>
+                  </Picker.ItemsSource>
+                  <Picker.SelectedIndex>1</Picker.SelectedIndex>
+               </Picker>
+
+               
+               <Label Text="Vereinfachung der Tracks mit dem Algorithmus Reumann-Witkam 
+oder Douglas-Peucker " 
+                   Grid.Row="0" Grid.Column="1" Style="{StaticResource labelStyle4Checkbox}"/>
+
+               -->
+            <!--<Button x:Name="TestButton" Text="Test" Clicked="TestButton_Clicked" Grid.Row="0" Grid.Column="1"/>-->
+            <!--
+
+
+            </Grid>-->
+
+            <!-- /////////////////////////////////////////////////////////////////////////// -->
+
+            <Frame Style="{StaticResource frameStyle4Division}">
+               <Label Text="Datei(en) für die Ein- und Ausgabe" Style="{StaticResource labelStyle4Division}"/>
+            </Frame>
+            <Frame x:Name="buttonInputfile" Style="{StaticResource buttonFrame}" HorizontalOptions="StartAndExpand">
+               <Label Text="GPX-Eingabedatei/en" Style="{StaticResource buttonText}" />
+               <Frame.GestureRecognizers>
+                  <TapGestureRecognizer Tapped="buttonInputfile_Tapped"/>
+               </Frame.GestureRecognizers>
+            </Frame>
+
+            <local:ItemList x:Name="inputFileListCtrl" 
+                            Padding="10"
+                            BackgroundColor="LightGreen"
+                            ElementBackgroundColor="#d0ffd0"
+                            ElementBorderColor="DarkGreen"
+                            ElementCornerRadius="5"
+                            ElementPadding="10,5,10,5"
+                            ElementTextColor="Black"
+                            ElementExtTextColor="Red"
+                            OnElementTapped="inputFileListCtrlElementTapped"/>
+
+            <Grid>
+               <Grid.RowDefinitions>
+                  <RowDefinition Height="auto"/>
+               </Grid.RowDefinitions>
+               <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="auto"/>
+                  <ColumnDefinition Width="*"/>
+               </Grid.ColumnDefinitions>
+
+               <Frame x:Name="buttonOutputfile" Style="{StaticResource buttonFrame}" HorizontalOptions="StartAndExpand" Grid.Row="0" Grid.Column="0" >
+                  <Label Text="Zieldatei" Style="{StaticResource buttonText}" />
+                  <Frame.GestureRecognizers>
+                     <TapGestureRecognizer Tapped="destFileButtonTapped"/>
+                  </Frame.GestureRecognizers>
+               </Frame>
+
+               <Frame x:Name="filename"
+                      Grid.Row="0" Grid.Column="1" 
+                      Style="{StaticResource frameStyle4Destfile}">
+                  <ScrollView x:Name="svDestFile"
+                              Orientation="Horizontal" 
+                              HorizontalOptions="StartAndExpand"
+                              VerticalOptions="CenterAndExpand">
+                     <Label x:Name="labelDestFile" Style="{StaticResource labelStyle4Destfile}">
+                        <Label.GestureRecognizers>
+                           <TapGestureRecognizer Tapped="destFileTapped"/>
+                        </Label.GestureRecognizers>
+                     </Label>
+                  </ScrollView>
+               </Frame>
+
+            </Grid>
+
+            <!-- /////////////////////////////////////////////////////////////////////////// -->
+
+            <Frame Style="{StaticResource frameStyle4Division}">
+               <Label Text="Ein-/Ausgabe"  Style="{StaticResource labelStyle4Division}"/>
+            </Frame>
+            <Grid>
+               <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="auto" />
+                  <ColumnDefinition Width="*" />
+               </Grid.ColumnDefinitions>
+               <Grid.RowDefinitions>
+                  <RowDefinition Height="auto" />
+               </Grid.RowDefinitions>
+
+               <!--<Switch x:Name="switchDelDest" Grid.Row="2" Grid.Column="1" IsToggled="False" Toggled="SwitchDelDest_Toggled"/>-->
+               <CheckBox x:Name="cb_ShowInfo" IsChecked="True" Grid.Row="0" Grid.Column="0"/>
+               <Label Text="Ausgabe von Waypoint-, Routen-, Track- und Segment-Infos (Name, Länge usw.)" 
+                   Grid.Row="0" Grid.Column="1" Style="{StaticResource labelStyle4Checkbox}"/>
+
+               <CheckBox x:Name="cb_InputWithSubdirs" IsChecked="False" Grid.Row="1" Grid.Column="0"/>
+               <Label Text="bei Verwendung von * oder ? im Dateinamen werden Eingabedateien auch in Unterverzeichnissen gesucht" 
+                   Grid.Row="1" Grid.Column="1" Style="{StaticResource labelStyle4Checkbox}"/>
+
+               <CheckBox x:Name="cb_OutputOverwrite" IsChecked="False" Grid.Row="2" Grid.Column="0"/>
+               <Label Text="eine schon vorhandene Ausgabedatei darf überschrieben werden" 
+                   Grid.Row="2" Grid.Column="1" Style="{StaticResource labelStyle4Checkbox}"/>
+
+               <CheckBox x:Name="cb_FormatedOutput" IsChecked="False" Grid.Row="3" Grid.Column="0"/>
+               <Label Text="Ausgabe XML-formatiert oder '1-zeilig' (kleinere Datei)" 
+                   Grid.Row="3" Grid.Column="1" Style="{StaticResource labelStyle4Checkbox}"/>
+
+               <CheckBox x:Name="cb_SimplifyGPX" IsChecked="False" Grid.Row="4" Grid.Column="0"/>
+               <Label Text="(viele) Zusatzdaten aus GPX-Dateien entfernen (bei mehreren Dateien immer)" 
+                   Grid.Row="4" Grid.Column="1" Style="{StaticResource labelStyle4Checkbox}"/>
+
+               <CheckBox x:Name="cb_OneFilePerTrack" IsChecked="False" Grid.Row="5" Grid.Column="0"/>
+               <Label Text="jeden Track in einer eigenen Datei ausgeben" 
+                   Grid.Row="5" Grid.Column="1" Style="{StaticResource labelStyle4Checkbox}"/>
+            </Grid>
+
+            <!-- /////////////////////////////////////////////////////////////////////////// -->
+
+            <Frame Style="{StaticResource frameStyle4Division}">
+               <Label Text="Tracks" Style="{StaticResource labelStyle4Division}"/>
+            </Frame>
+            <Grid>
+               <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="auto" />
+                  <ColumnDefinition Width="*" />
+               </Grid.ColumnDefinitions>
+               <Grid.RowDefinitions>
+                  <RowDefinition Height="auto" />
+               </Grid.RowDefinitions>
+
+               <CheckBox x:Name="cb_Segment2Track" IsChecked="False" Grid.Row="0" Grid.Column="0"/>
+               <Label Text="jedes Tracksegment in eigenen Tracks umwandeln" 
+                   Grid.Row="0" Grid.Column="1" Style="{StaticResource labelStyle4Checkbox}"/>
+
+               <CheckBox x:Name="cb_Filename2TrackName" IsChecked="False" Grid.Row="1" Grid.Column="0"/>
+               <Label Text="Tracknamen auf den Dateinamen setzen" Grid.Row="1" Grid.Column="1" Style="{StaticResource labelStyle4Checkbox}"/>
+            </Grid>
+
+            <!-- /////////////////////////////////////////////////////////////////////////// -->
+
+            <Frame Style="{StaticResource frameStyle4Division}">
+               <Label Text="Track vereinfachen" Style="{StaticResource labelStyle4Division}"/>
+            </Frame>
+            <Grid>
+               <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="auto" />
+                  <ColumnDefinition Width="*" />
+               </Grid.ColumnDefinitions>
+               <Grid.RowDefinitions>
+                  <RowDefinition Height="auto" />
+               </Grid.RowDefinitions>
+
+               <Picker x:Name="picker_HorizontalSimplification"
+                    Title="Vereinfachung"
+                    Grid.Row="0" Grid.Column="0">
+                  <Picker.ItemsSource>
+                     <x:Array Type="{x:Type x:String}">
+                        <x:String>keine</x:String>
+                        <x:String>Reumann-Witkam</x:String>
+                        <x:String>Douglas-Peucker</x:String>
+                     </x:Array>
+                  </Picker.ItemsSource>
+                  <Picker.SelectedIndex>0</Picker.SelectedIndex>
+               </Picker>
+               <Label Text="Vereinfachung der Tracks mit dem Algorithmus Reumann-Witkam oder Douglas-Peucker" 
+                   Grid.Row="0" Grid.Column="1" Style="{StaticResource labelStyle4Checkbox}"/>
+
+               <Entry x:Name="entry_HorizontalWidth" 
+                   VerticalOptions="FillAndExpand"
+                   HorizontalOptions="FillAndExpand"
+                   Keyboard="Numeric" 
+                   Placeholder="kein Wert"
+                   Text="0,05"
+                   Grid.Row="1" Grid.Column="0">
+                  <Entry.Behaviors>
+                     <local:NoNegativeDoubleValidationBehavior/>
+                  </Entry.Behaviors>
+               </Entry>
+               <Label Text="Breite des Toleranzbereiches für die Vereinfachung (Standard 0.05)" 
+                   Grid.Row="1" Grid.Column="1" Style="{StaticResource labelStyle4Checkbox}"/>
+
+               <Entry x:Name="entry_HorizontalMaxSpeed" 
+                   VerticalOptions="FillAndExpand"
+                   HorizontalOptions="FillAndExpand"
+                   Keyboard="Numeric" 
+                   Placeholder="kein Wert"
+                   Grid.Row="2" Grid.Column="0">
+                  <Entry.Behaviors>
+                     <local:NoNegativeDoubleValidationBehavior/>
+                  </Entry.Behaviors>
+               </Entry>
+               <Label Text="Punkte entfernen, die mit einer höheren Geschwindigkeit in km/h erreicht werden" 
+                   Grid.Row="2" Grid.Column="1" Style="{StaticResource labelStyle4Checkbox}"/>
+            </Grid>
+
+            <!-- /////////////////////////////////////////////////////////////////////////// -->
+
+            <Frame Style="{StaticResource frameStyle4Division}">
+               <Label Text="Höhenprofil vereinfachen" Style="{StaticResource labelStyle4Division}"/>
+            </Frame>
+            <Grid>
+               <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="auto" />
+                  <ColumnDefinition Width="*" />
+               </Grid.ColumnDefinitions>
+               <Grid.RowDefinitions>
+                  <RowDefinition Height="auto" />
+               </Grid.RowDefinitions>
+
+               <Picker x:Name="picker_VerticalSimplification"
+                    Title="Vereinfachung"
+                    Grid.Row="0" Grid.Column="0">
+                  <Picker.ItemsSource>
+                     <x:Array Type="{x:Type x:String}">
+                        <x:String>keine</x:String>
+                        <x:String>SlidingIntegral</x:String>
+                        <x:String>SlidingMean</x:String>
+                     </x:Array>
+                  </Picker.ItemsSource>
+                  <Picker.SelectedIndex>0</Picker.SelectedIndex>
+               </Picker>
+               <Label Text="Höhenprofil vereinfachen mit Algorithmus dem SlidingIntegral oder SlidingMean" 
+                   Grid.Row="0" Grid.Column="1" Style="{StaticResource labelStyle4Checkbox}"/>
+
+               <Entry x:Name="entry_VerticalWidth" 
+                   VerticalOptions="FillAndExpand"
+                   HorizontalOptions="FillAndExpand"
+                   Keyboard="Numeric" 
+                   Placeholder="kein Wert"
+                   Text="100"
+                   Grid.Row="1" Grid.Column="0">
+                  <Entry.Behaviors>
+                     <local:NoNegativeDoubleValidationBehavior/>
+                  </Entry.Behaviors>
+               </Entry>
+               <Label Text="Breite des Höhen-Integrationsbereiches in Metern (Standard 100m)" 
+                   Grid.Row="1" Grid.Column="1" Style="{StaticResource labelStyle4Checkbox}"/>
+
+               <Entry x:Name="entry_VerticalOutlierWidth" 
+                   VerticalOptions="FillAndExpand"
+                   HorizontalOptions="FillAndExpand"
+                   Keyboard="Numeric" 
+                   Placeholder="kein Wert"
+                   Text="50"
+                   Grid.Row="2" Grid.Column="0">
+                  <Entry.Behaviors>
+                     <local:NoNegativeDoubleValidationBehavior/>
+                  </Entry.Behaviors>
+               </Entry>
+               <Label Text="Länge des Bereiches für die 'Ausreißer'-Korrektur von Höhen (Standard 50m)" 
+                   Grid.Row="2" Grid.Column="1" Style="{StaticResource labelStyle4Checkbox}"/>
+
+               <Entry x:Name="entry_MaxAscent" 
+                   VerticalOptions="FillAndExpand"
+                   HorizontalOptions="FillAndExpand"
+                   Keyboard="Numeric" 
+                   Placeholder="kein Wert"
+                   Text="25"
+                   Grid.Row="3" Grid.Column="0">
+                  <Entry.Behaviors>
+                     <local:NoNegativeDoubleValidationBehavior/>
+                  </Entry.Behaviors>
+               </Entry>
+               <Label Text="max. gültiger An-/Abstieg in Prozent (Standard 25%)" 
+                   Grid.Row="3" Grid.Column="1" Style="{StaticResource labelStyle4Checkbox}"/>
+            </Grid>
+
+            <!-- /////////////////////////////////////////////////////////////////////////// -->
+
+            <Frame Style="{StaticResource frameStyle4Division}">
+               <Label Text="Trackpunktdaten ändern" Style="{StaticResource labelStyle4Division}"/>
+            </Frame>
+            <Grid>
+               <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="auto" />
+                  <ColumnDefinition Width="*" />
+               </Grid.ColumnDefinitions>
+               <Grid.RowDefinitions>
+                  <RowDefinition Height="auto" />
+               </Grid.RowDefinitions>
+
+               <CheckBox x:Name="cb_DeleteTimestamp" IsChecked="False" Grid.Row="0" Grid.Column="0"/>
+               <Label Text="alle Zeitstempel werden aus den Trackpunkten entfernt" 
+                      Grid.Row="0" Grid.Column="1" Style="{StaticResource labelStyle4Checkbox}"/>
+
+               <CheckBox x:Name="cb_DeleteHeight" IsChecked="False" Grid.Row="1" Grid.Column="0"/>
+               <Label Text="alle Höhenangaben werden aus den Trackpunkten entfernt" 
+                      Grid.Row="1" Grid.Column="1" Style="{StaticResource labelStyle4Checkbox}"/>
+
+               <CheckBox x:Name="cb_GapFill" IsChecked="False" Grid.Row="2" Grid.Column="0"/>
+               <Label Text="fehlende Höhenwerte und Zeitstempel linear interpolieren" 
+                      Grid.Row="2" Grid.Column="1" Style="{StaticResource labelStyle4Checkbox}"/>
+
+               <Entry x:Name="entry_ConstantHeight" 
+                   VerticalOptions="FillAndExpand"
+                   HorizontalOptions="FillAndExpand"
+                   Keyboard="Numeric" 
+                   Placeholder="kein Wert"
+                   Grid.Row="3" Grid.Column="0">
+                  <Entry.Behaviors>
+                     <local:NumericValidationBehavior/>
+                  </Entry.Behaviors>
+               </Entry>
+               <Label Text="die Höhe aller Trackpunkten wird auf den konstanten Wert gesetzt" 
+                   Grid.Row="3" Grid.Column="1" Style="{StaticResource labelStyle4Checkbox}"/>
+
+               <Entry x:Name="entry_MinHeight" 
+                   VerticalOptions="FillAndExpand"
+                   HorizontalOptions="FillAndExpand"
+                   Keyboard="Numeric" 
+                   Placeholder="kein Wert"
+                   Grid.Row="4" Grid.Column="0">
+                  <Entry.Behaviors>
+                     <local:NumericValidationBehavior/>
+                  </Entry.Behaviors>
+               </Entry>
+               <Label Text="alle kleineren Trackpunkthöhen werden durch diesen Wert ersetzt" 
+                   Grid.Row="4" Grid.Column="1" Style="{StaticResource labelStyle4Checkbox}"/>
+
+               <Entry x:Name="entry_MaxHeight" 
+                   VerticalOptions="FillAndExpand"
+                   HorizontalOptions="FillAndExpand"
+                   Keyboard="Numeric" 
+                   Placeholder="kein Wert"
+                   Grid.Row="5" Grid.Column="0">
+                  <Entry.Behaviors>
+                     <local:NumericValidationBehavior/>
+                  </Entry.Behaviors>
+               </Entry>
+               <Label Text="alle größeren Trackpunkthöhen werden durch diesen Wert ersetzt" 
+                   Grid.Row="5" Grid.Column="1" Style="{StaticResource labelStyle4Checkbox}"/>
+            </Grid>
+
+            <!-- /////////////////////////////////////////////////////////////////////////// -->
+
+            <Frame Style="{StaticResource frameStyle4Division}">
+               <Label Text="KML-Trackdaten" Style="{StaticResource labelStyle4Division}"/>
+            </Frame>
+            <Grid>
+               <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="2*" />
+                  <ColumnDefinition Width="3*" />
+               </Grid.ColumnDefinitions>
+               <Grid.RowDefinitions>
+                  <RowDefinition Height="auto" />
+               </Grid.RowDefinitions>
+
+               <myctrls:ChooseColor x:Name="kmlColorChooserCtrl" 
+                                    ActualColorR="0.5"
+                                    ActualColorG="0.5"
+                                    ActualColorB="0.5"
+                                    BorderSize="30"
+                                    Grid.Row="0" Grid.Column="0"
+                                    ColorChanged="kmlColorChooserCtrlColorChanged"/>
+               <Label Text="Farbe von KML-Tracks" 
+                      Grid.Row="0" Grid.Column="1" Style="{StaticResource labelStyle4Checkbox}"/>
+            </Grid>
+            <Grid>
+               <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="auto" />
+                  <ColumnDefinition Width="*" />
+               </Grid.ColumnDefinitions>
+               <Grid.RowDefinitions>
+                  <RowDefinition Height="auto" />
+               </Grid.RowDefinitions>
+
+               <Entry x:Name="entry_KmlTrackDataWidth" 
+                      VerticalOptions="FillAndExpand"
+                      HorizontalOptions="FillAndExpand"
+                      Keyboard="Numeric" 
+                      Placeholder="kein Wert"
+                      Grid.Row="0" Grid.Column="0">
+                  <Entry.Behaviors>
+                     <local:NumericValidationBehavior/>
+                  </Entry.Behaviors>
+               </Entry>
+               <Label Text="Breite der KML-Tracks" 
+                      Grid.Row="0" Grid.Column="1" Style="{StaticResource labelStyle4Checkbox}"/>
+            </Grid>
+
+            <!-- /////////////////////////////////////////////////////////////////////////// -->
+
+            <BoxView Style="{StaticResource horizontalLine}"/>
+
+            <Frame x:Name="buttonStart" Style="{StaticResource buttonFrame}">
+               <Label Text="Start der Verarbeitung" Style="{StaticResource buttonText}"></Label>
+               <Frame.GestureRecognizers>
+                  <TapGestureRecognizer Tapped="ButtonStart_Tapped"/>
+               </Frame.GestureRecognizers>
+            </Frame>
+
+         </StackLayout>
+      </ScrollView >
+   </StackLayout>
+</ContentPage>

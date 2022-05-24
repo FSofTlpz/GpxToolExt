@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Application xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="GpxToolExt.App">
+    <Application.Resources>
+      <ResourceDictionary>
+         <!-- gemeinsame Ressourcen für die gesamte App -->
+
+         <!-- ein selbstgebauter Button -->
+         <!-- Rahmen -->
+         <Style x:Key="buttonFrame" TargetType="Frame">
+            <Setter Property="BackgroundColor" Value="#00e000"/>
+            <Setter Property="OutlineColor" Value="Black"/>
+            <Setter Property="CornerRadius" Value="20"/>
+            <Setter Property="HorizontalOptions" Value="Center"/>
+            <Setter Property="VerticalOptions" Value="Center"/>
+            <Setter Property="HasShadow" Value="True"/>
+            <Setter Property="Padding" Value="15"/>
+            <Setter Property="Margin" Value="10"/>
+         </Style>
+         <!-- Buttontext -->
+         <Style x:Key="buttonText" TargetType="Label">
+            <Setter Property="FontSize" Value="Medium"/>
+            <Setter Property="TextColor" Value="Black"/>
+            <Setter Property="HorizontalOptions" Value="Center"/>
+         </Style>
+
+         <!-- eine einfache waagerechte Trennlinie -->
+         <Style x:Key="horizontalLine" TargetType="BoxView">
+            <Setter Property="BackgroundColor" Value="DarkGray"/>
+            <Setter Property="HeightRequest" Value="1" />
+            <Setter Property="Margin" Value="3"/>
+         </Style>
+
+      </ResourceDictionary>
+   </Application.Resources>
+</Application>

@@ -66,6 +66,7 @@ namespace FSofTUtils.Geography {
       /// <param name="outputstream">Falls kein Dateiname angegeben ist, ist hier ein Stream nötig.</param>
       /// <param name="gpx"></param>
       /// <param name="formatted"></param>
+      /// <param name="zipped"></param>
       /// <param name="cola"></param>
       /// <param name="colr"></param>
       /// <param name="colg"></param>
@@ -75,6 +76,7 @@ namespace FSofTUtils.Geography {
                              Stream outputstream,
                              GpxFile gpx,
                              bool formatted,
+                             bool zipped,
                              IList<uint> cola,
                              IList<uint> colr,
                              IList<uint> colg,
@@ -130,7 +132,7 @@ namespace FSofTUtils.Geography {
 
          writekml(filename,
                   outputstream,
-                  Path.GetExtension(filename).ToLower() == ".kmz",
+                  zipped,
                   formatted);
       }
 
@@ -472,37 +474,30 @@ namespace FSofTUtils.Geography {
       /// <param name="formatted"></param>
       void writekml(string filename,
                     Stream outputstream,
-                    bool zipped, 
+                    bool zipped,
                     bool formatted) {
          if (zipped) {
 
             bool isFile = !string.IsNullOrEmpty(filename);
-
-            if (isFile)
-               outputstream = new FileStream(filename, FileMode.Create);
-            if (outputstream != null) {
-               using (ZipArchive archive = new ZipArchive(outputstream, ZipArchiveMode.Update)) {
+            if (isFile) {
+               using (FileStream filestream = new FileStream(filename, FileMode.Create)) {
+                  using (ZipArchive archive = new ZipArchive(filestream, ZipArchiveMode.Update)) {
+                     ZipArchiveEntry file = archive.CreateEntry(defaultKmlFilename);
+                     using (Stream writer = file.Open()) {
+                        kml.SaveData(null, true, writer);
+                     }
+                  }
+               }
+            } else {
+               using (ZipArchive archive = new ZipArchive(outputstream, ZipArchiveMode.Update, true)) {
                   ZipArchiveEntry file = archive.CreateEntry(defaultKmlFilename);
                   using (Stream writer = file.Open()) {
                      kml.SaveData(null, true, writer);
                   }
                }
-
-               if (isFile) {
-                  outputstream.Close();
-                  outputstream.Dispose();
-               }
             }
-            //using (FileStream zipstream = new FileStream(filename, FileMode.Create)) {
-            //   using (ZipArchive archive = new ZipArchive(zipstream, ZipArchiveMode.Update)) {
-            //      ZipArchiveEntry file = archive.CreateEntry(defaultKmlFilename);
-            //      using (Stream writer = file.Open()) {
-            //         kml.SaveData(null, true, writer);
-            //      }
-            //   }
-            //}
          } else
-            kml.SaveData(filename, formatted, outputstream);
+            kml.SaveData(null, formatted, outputstream);
       }
 
       /*

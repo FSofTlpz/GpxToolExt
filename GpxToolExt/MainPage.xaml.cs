@@ -10,7 +10,7 @@ using Xamarin.Forms;
 namespace GpxToolExt {
    public partial class MainPage : ContentPage {
 
-      const string TITLE = "GpxToolExt, © by FSofT 11.8.2021";
+      const string TITLE = "GpxToolExt, © by FSofT 17.8.2022";
 
       readonly object androidactivity;
 

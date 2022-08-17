@@ -673,8 +673,9 @@ namespace GpxTool {
             width[i] = kmltrackdata[i].LineWidth;
          }
 
-         bool kmz = Path.GetExtension(destfile).ToLower() == ".kml" ||
-                    Path.GetExtension(destfile).ToLower() == ".kmz";
+         bool kmz = Path.GetExtension(destfile).ToLower() == ".kmz";
+         bool kml = Path.GetExtension(destfile).ToLower() == ".kml" ||
+                    kmz;
          MemoryStream outputstream = null;
 #if ANDROID
          outputstream = new MemoryStream();
@@ -688,6 +689,7 @@ namespace GpxTool {
             gpxfile.SavePoorGpx(destfile,
                                 outputstream,
                                 formated,
+                                kml,
                                 kmz,
                                 simplify ? 1 : int.MaxValue,
                                 cola,
@@ -699,6 +701,7 @@ namespace GpxTool {
             gpxfile.Save(destfile,
                          outputstream,
                          formated,
+                         kml,
                          kmz,
                          cola,
                          colr,
@@ -709,6 +712,7 @@ namespace GpxTool {
 
 #if ANDROID
          SaveAndroidFile(destfileandroid, outputstream);
+         Console.Error.WriteLine("   -> {0} Bytes", outputstream.Length);
 #endif
 
       }
@@ -845,7 +849,7 @@ namespace GpxTool {
          if (sh != null &&
              stream != null &&
              !string.IsNullOrEmpty(filename)) {
-            using (Stream outstream = sh.OpenFile(filename, "rw")) {
+            using (Stream outstream = sh.OpenFile(filename, "rwt")) {
                stream.Seek(0, SeekOrigin.Begin);
                byte[] buff = new byte[1024];
                int count;

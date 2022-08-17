@@ -196,15 +196,15 @@ oder Douglas-Peucker "
                <Label Text="Tracks" Style="{StaticResource labelStyle4Division}"/>
             </Frame>
             <Grid>
-               <Grid.ColumnDefinitions>
-                  <ColumnDefinition Width="auto" />
-                  <ColumnDefinition Width="*" />
-               </Grid.ColumnDefinitions>
-               <Grid.RowDefinitions>
-                  <RowDefinition Height="auto" />
-               </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                </Grid.RowDefinitions>
 
-               <CheckBox x:Name="cb_Segment2Track" IsChecked="False" Grid.Row="0" Grid.Column="0"/>
+                <CheckBox x:Name="cb_Segment2Track" IsChecked="False" Grid.Row="0" Grid.Column="0"/>
                <Label Text="jedes Tracksegment in eigenen Tracks umwandeln" 
                    Grid.Row="0" Grid.Column="1" Style="{StaticResource labelStyle4Checkbox}"/>
 
